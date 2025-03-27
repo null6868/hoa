@@ -234,9 +234,122 @@
             font-size: 0.9em;
             margin-top: 15px;
         }
+
+        .chemicals-table {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .chemicals-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .chemicals-table th, .chemicals-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .chemicals-table th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .chemicals-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .chemicals-note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .chemicals-note ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .chemicals-note li {
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .chemicals-table {
+                font-size: 14px;
+            }
+        }
+
+        .rotate-prompt {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .rotate-prompt img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            animation: rotate 2s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media screen and (max-width: 768px) and (orientation: portrait) {
+            .container {
+                display: none;
+            }
+            .rotate-prompt {
+                display: flex;
+            }
+        }
+
+        @media screen and (max-width: 768px) and (orientation: landscape) {
+            .container {
+                display: block;
+            }
+            .rotate-prompt {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="rotate-prompt">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M21 12C21 7.03 16.97 3 12 3C7.03 3 3 7.03 3 12">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 12 12"
+                    to="360 12 12"
+                    dur="1s"
+                    repeatCount="indefinite"/>
+            </path>
+            <path d="M12 15V3M12 3L8 7M12 3L16 7"/>
+        </svg>
+        <h2>Vui lòng xoay ngang điện thoại</h2>
+        <p>Để xem nội dung tốt nhất, hãy xoay điện thoại của bạn sang chế độ ngang</p>
+    </div>
+
     <div class="container">
         <h1>Quy Trình Xử Lý Nước Thải Sinh Hoạt</h1>
         
@@ -372,6 +485,106 @@
             </div>
         </div>
 
+        <div class="standards-section">
+            <h2>Hóa Chất Xử Lý và Tác Dụng</h2>
+            <div class="standards-content">
+                <div class="chemicals-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Loại Hóa Chất</th>
+                                <th>Tên Hóa Chất</th>
+                                <th>Tác Dụng Chính</th>
+                                <th>Giai Đoạn Sử Dụng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chất keo tụ</td>
+                                <td>
+                                    - PAC (Poly Aluminium Chloride)<br>
+                                    - Phèn nhôm Al₂(SO₄)₃<br>
+                                    - Phèn sắt FeCl₃
+                                </td>
+                                <td>
+                                    - Trung hòa điện tích của các hạt keo<br>
+                                    - Tạo bông cặn lớn<br>
+                                    - Tăng khả năng lắng
+                                </td>
+                                <td>Bể keo tụ</td>
+                            </tr>
+                            <tr>
+                                <td>Chất trợ keo tụ</td>
+                                <td>
+                                    - Polymer anion<br>
+                                    - Polymer cation<br>
+                                    - PAM (Polyacrylamide)
+                                </td>
+                                <td>
+                                    - Tăng cường liên kết giữa các bông cặn<br>
+                                    - Cải thiện tốc độ lắng<br>
+                                    - Giảm lượng bùn thải
+                                </td>
+                                <td>Bể keo tụ</td>
+                            </tr>
+                            <tr>
+                                <td>Chất điều chỉnh pH</td>
+                                <td>
+                                    - Vôi Ca(OH)₂<br>
+                                    - NaOH<br>
+                                    - H₂SO₄
+                                </td>
+                                <td>
+                                    - Điều chỉnh pH về khoảng tối ưu<br>
+                                    - Tăng hiệu quả xử lý sinh học<br>
+                                    - Tối ưu quá trình keo tụ
+                                </td>
+                                <td>Bể điều hòa</td>
+                            </tr>
+                            <tr>
+                                <td>Chất khử trùng</td>
+                                <td>
+                                    - Clo dạng viên Ca(ClO)₂<br>
+                                    - Natri hypochlorite NaClO<br>
+                                    - Ozone O₃
+                                </td>
+                                <td>
+                                    - Tiêu diệt vi khuẩn có hại<br>
+                                    - Khử trùng nước thải<br>
+                                    - Đảm bảo tiêu chuẩn vi sinh
+                                </td>
+                                <td>Bể khử trùng</td>
+                            </tr>
+                            <tr>
+                                <td>Chất dinh dưỡng</td>
+                                <td>
+                                    - Urê CO(NH₂)₂<br>
+                                    - DAP (NH₄)₂HPO₄<br>
+                                    - Glucose C₆H₁₂O₆
+                                </td>
+                                <td>
+                                    - Cung cấp N, P cho vi sinh vật<br>
+                                    - Tăng hiệu quả xử lý sinh học<br>
+                                    - Duy trì hoạt động của vi sinh vật
+                                </td>
+                                <td>Bể thiếu khí, Bể hiếu khí</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="chemicals-note">
+                    <p><strong>Lưu ý quan trọng về sử dụng hóa chất:</strong></p>
+                    <ul>
+                        <li>Liều lượng hóa chất cần được xác định thông qua thí nghiệm Jar-test</li>
+                        <li>Cần theo dõi và điều chỉnh liều lượng theo chất lượng nước thải đầu vào</li>
+                        <li>Đảm bảo an toàn khi lưu trữ và sử dụng hóa chất</li>
+                        <li>Kiểm tra định kỳ hiệu quả của từng loại hóa chất</li>
+                        <li>Tuân thủ quy trình pha chế và định lượng theo hướng dẫn của nhà sản xuất</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="process-container">
             <div class="step" onclick="highlightStep(this)">
                 <h2 data-step="1">Bể Thu Gom</h2>
@@ -434,7 +647,23 @@
             </div>
 
             <div class="step" onclick="highlightStep(this)">
-                <h2 data-step="5">Bể Lắng</h2>
+                <h2 data-step="5">Bể Keo Tụ</h2>
+                <div class="step-content">
+                    <p>Bể keo tụ là bước quan trọng trong việc loại bỏ các chất rắn lơ lửng và chất keo có kích thước nhỏ. Quá trình xử lý bao gồm:</p>
+                    <ul>
+                        <li>Bơm định lượng hóa chất keo tụ (PAC, phèn nhôm, hoặc các chất keo tụ khác)</li>
+                        <li>Khuấy trộn nhanh để phân tán đều hóa chất</li>
+                        <li>Khuấy trộn chậm để tạo bông cặn</li>
+                        <li>Tạo điều kiện cho các hạt keo tụ kết dính với nhau</li>
+                        <li>Hình thành các bông cặn có kích thước lớn hơn</li>
+                        <li>Cải thiện hiệu quả lắng của các chất ô nhiễm</li>
+                    </ul>
+                    <object data="images/be-keo-tu.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="6">Bể Lắng</h2>
                 <div class="step-content">
                     <p>Bể lắng đóng vai trò quan trọng trong việc tách phân ly pha rắn và pha lỏng của nước thải sau xử lý sinh học. Quá trình lắng bao gồm:</p>
                     <ul>
@@ -450,7 +679,7 @@
             </div>
 
             <div class="step" onclick="highlightStep(this)">
-                <h2 data-step="6">Bể Khử Trùng</h2>
+                <h2 data-step="7">Bể Khử Trùng</h2>
                 <div class="step-content">
                     <p>Đây là bước cuối cùng và quan trọng trước khi xả nước thải ra môi trường. Tại bể khử trùng:</p>
                     <ul>
