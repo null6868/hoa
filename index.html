@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy Trình Xử Lý Nước Thải Sinh Hoạt</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .step {
+            flex: 1 1 400px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background-color: white;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step h2 {
+            color: #3498db;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step h2::before {
+            content: attr(data-step);
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8em;
+        }
+        
+        .step-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .step-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .step-content {
+            margin-top: 15px;
+            color: #666;
+        }
+        
+        .step.active {
+            border-color: #3498db;
+            background-color: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .step {
+                flex: 1 1 100%;
+            }
+        }
+
+        .importance-section, .standards-section {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .importance-section h2, .standards-section h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .importance-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .importance-item {
+            flex: 1 1 300px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .importance-item h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .importance-item ul {
+            padding-left: 20px;
+        }
+
+        .importance-item li {
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        .standards-table {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .standards-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .standards-table th, .standards-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .standards-table th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .standards-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .standards-note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .standards-note ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .standards-note li {
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .importance-item {
+                flex: 1 1 100%;
+            }
+
+            .standards-table {
+                font-size: 14px;
+            }
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .qr-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        #qrcode {
+            margin: 20px auto;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .qr-section p {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quy Trình Xử Lý Nước Thải Sinh Hoạt</h1>
+        
+        <div class="intro">
+            <p>Quy trình xử lý nước thải sinh hoạt là một quá trình quan trọng giúp bảo vệ môi trường và tái sử dụng nguồn nước. Nước thải sinh hoạt chứa khoảng 75% chất hữu cơ và 25% chất khoáng, cùng với các vi sinh vật, vi khuẩn và chất rắn không tan. Hãy tìm hiểu chi tiết về 6 bước trong quy trình xử lý.</p>
+        </div>
+
+        <div class="importance-section">
+            <h2>Tầm Quan Trọng của Việc Xử Lý Nước Thải</h2>
+            <div class="importance-content">
+                <div class="importance-item">
+                    <h3>Bảo Vệ Môi Trường</h3>
+                    <ul>
+                        <li>Ngăn chặn ô nhiễm nguồn nước mặt và nước ngầm</li>
+                        <li>Bảo vệ hệ sinh thái thủy sinh</li>
+                        <li>Giảm thiểu tác động đến đa dạng sinh học</li>
+                        <li>Hạn chế phát thải khí nhà kính từ nước thải không xử lý</li>
+                    </ul>
+                </div>
+                <div class="importance-item">
+                    <h3>Sức Khỏe Cộng Đồng</h3>
+                    <ul>
+                        <li>Ngăn ngừa dịch bệnh lây lan qua nước</li>
+                        <li>Giảm thiểu các bệnh truyền nhiễm</li>
+                        <li>Cải thiện điều kiện vệ sinh môi trường</li>
+                        <li>Bảo vệ nguồn nước sinh hoạt cho cộng đồng</li>
+                    </ul>
+                </div>
+                <div class="importance-item">
+                    <h3>Phát Triển Bền Vững</h3>
+                    <ul>
+                        <li>Tái sử dụng nguồn nước sau xử lý</li>
+                        <li>Tiết kiệm tài nguyên nước sạch</li>
+                        <li>Thu hồi năng lượng từ quá trình xử lý</li>
+                        <li>Đáp ứng mục tiêu phát triển bền vững của LHQ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="standards-section">
+            <h2>Tiêu Chuẩn Nước Thải Sau Xử Lý</h2>
+            <div class="standards-content">
+                <p>Theo QCVN 14:2008/BTNMT - Quy chuẩn kỹ thuật quốc gia về nước thải sinh hoạt, nước thải sau xử lý phải đạt các tiêu chuẩn sau:</p>
+                <div class="standards-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Thông số</th>
+                                <th>Giới hạn A</th>
+                                <th>Giới hạn B</th>
+                                <th>Đơn vị</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>pH</td>
+                                <td>5-9</td>
+                                <td>5-9</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>BOD₅ (20°C)</td>
+                                <td>30</td>
+                                <td>50</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Tổng chất rắn lơ lửng (TSS)</td>
+                                <td>50</td>
+                                <td>100</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Tổng chất rắn hòa tan (TDS)</td>
+                                <td>500</td>
+                                <td>1000</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Sunfua (tính theo H₂S)</td>
+                                <td>1.0</td>
+                                <td>4.0</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Amoni (tính theo N)</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Nitrat (NO₃⁻) (tính theo N)</td>
+                                <td>30</td>
+                                <td>50</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Dầu mỡ động, thực vật</td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Tổng các chất hoạt động bề mặt</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Phosphat (PO₄³⁻) (tính theo P)</td>
+                                <td>6</td>
+                                <td>10</td>
+                                <td>mg/l</td>
+                            </tr>
+                            <tr>
+                                <td>Tổng Coliform</td>
+                                <td>3000</td>
+                                <td>5000</td>
+                                <td>MPN/100ml</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="standards-note">
+                    <p><strong>Ghi chú:</strong></p>
+                    <ul>
+                        <li>Giới hạn A: áp dụng cho nước thải sinh hoạt khi xả vào nguồn nước được dùng cho mục đích cấp nước sinh hoạt</li>
+                        <li>Giới hạn B: áp dụng cho nước thải sinh hoạt khi xả vào nguồn nước không dùng cho mục đích cấp nước sinh hoạt</li>
+                        <li>Ngoài các thông số trên, nước thải sinh hoạt còn phải đáp ứng các yêu cầu khác theo quy định hiện hành</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="process-container">
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="1">Bể Thu Gom</h2>
+                <div class="step-content">
+                    <p>Bước đầu tiên, nước thải sinh hoạt được bơm vào bể thu gom. Đây là nơi tiếp nhận toàn bộ nước thải từ các nguồn khác nhau như nhà vệ sinh, nhà bếp, và các hoạt động sinh hoạt khác. Tại đây:</p>
+                    <ul>
+                        <li>Thu gom và điều tiết lưu lượng nước thải từ nhiều nguồn khác nhau</li>
+                        <li>Tách dầu mỡ và rác thải nổi bằng thiết bị chuyên dụng</li>
+                        <li>Loại bỏ cặn bã, rác thải có kích thước lớn</li>
+                        <li>Đồng nhất thành phần nước thải trước khi xử lý</li>
+                    </ul>
+                    <object data="images/be-thu-gom.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="2">Bể Điều Hòa</h2>
+                <div class="step-content">
+                    <p>Sau khi qua bể thu gom, nước thải được dẫn vào bể điều hòa. Đây là bước quan trọng để cân bằng và ổn định các thông số của nước thải. Tại bể điều hòa:</p>
+                    <ul>
+                        <li>Cân bằng lưu lượng nước thải đến các công đoạn xử lý tiếp theo</li>
+                        <li>Sục khí liên tục để tránh lắng cặn và phân hủy kỵ khí</li>
+                        <li>Ổn định nồng độ các chất ô nhiễm, tránh sốc tải cho hệ thống</li>
+                        <li>Trộn đều nước thải bằng hệ thống khuấy trộn và sục khí</li>
+                        <li>Điều hòa pH và nhiệt độ của nước thải</li>
+                    </ul>
+                    <object data="images/be-dieu-hoa.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="3">Bể Thiếu Khí</h2>
+                <div class="step-content">
+                    <p>Bể thiếu khí là nơi diễn ra quá trình khử nitrat và phân hủy các chất hữu cơ trong điều kiện thiếu oxy. Quá trình xử lý thiếu khí bao gồm:</p>
+                    <ul>
+                        <li>Nuôi dưỡng vi sinh vật trên giá thể chuyên dụng</li>
+                        <li>Khử nitrat (NO3-) thành khí nitơ (N2)</li>
+                        <li>Phân hủy chất hữu cơ thành CO2, nước và metan</li>
+                        <li>Giảm hàm lượng BOD và các chất hữu cơ</li>
+                        <li>Tạo môi trường thích hợp cho vi sinh vật kỵ khí phát triển</li>
+                    </ul>
+                    <object data="images/be-thieu-khi.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="4">Bể Hiếu Khí</h2>
+                <div class="step-content">
+                    <p>Tại bể hiếu khí, nước thải được xử lý trong điều kiện giàu oxy với sự tham gia của vi sinh vật hiếu khí. Các quá trình chính bao gồm:</p>
+                    <ul>
+                        <li>Kiểm soát và duy trì BOD ≤ 5mg/l</li>
+                        <li>Vi sinh vật hiếu khí phân hủy triệt để các hợp chất hữu cơ</li>
+                        <li>Chuyển hóa các chất vô cơ đến dạng ổn định cuối cùng (NO3-, PO4-, SO4-)</li>
+                        <li>Cung cấp oxy liên tục qua hệ thống sục khí mịn</li>
+                        <li>Tạo môi trường thuận lợi cho vi sinh vật hiếu khí phát triển</li>
+                        <li>Kiểm soát nhiệt độ và pH tối ưu cho quá trình xử lý</li>
+                    </ul>
+                    <object data="images/be-hieu-khi.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="5">Bể Lắng</h2>
+                <div class="step-content">
+                    <p>Bể lắng đóng vai trò quan trọng trong việc tách phân ly pha rắn và pha lỏng của nước thải sau xử lý sinh học. Quá trình lắng bao gồm:</p>
+                    <ul>
+                        <li>Lắng cặn sinh học và các chất rắn lơ lửng</li>
+                        <li>Tách bùn hoạt tính dư thừa</li>
+                        <li>Thu nước trong phía trên</li>
+                        <li>Tuần hoàn một phần bùn về bể hiếu khí</li>
+                        <li>Kiểm soát thời gian lưu nước để đạt hiệu quả lắng tối ưu</li>
+                        <li>Xử lý bùn thải theo quy định môi trường</li>
+                    </ul>
+                    <object data="images/be-lang.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+
+            <div class="step" onclick="highlightStep(this)">
+                <h2 data-step="6">Bể Khử Trùng</h2>
+                <div class="step-content">
+                    <p>Đây là bước cuối cùng và quan trọng trước khi xả nước thải ra môi trường. Tại bể khử trùng:</p>
+                    <ul>
+                        <li>Bơm định lượng hóa chất khử trùng (thường là Clo hoặc các hợp chất khử trùng khác)</li>
+                        <li>Loại bỏ vi khuẩn có hại và các mầm bệnh</li>
+                        <li>Đảm bảo nước đạt tiêu chuẩn vi sinh trước khi xả thải</li>
+                        <li>Kiểm soát thời gian tiếp xúc với hóa chất khử trùng</li>
+                        <li>Theo dõi và điều chỉnh nồng độ chất khử trùng</li>
+                        <li>Kiểm tra các chỉ tiêu cuối cùng trước khi xả thải</li>
+                    </ul>
+                    <object data="images/be-khu-trung.svg" type="image/svg+xml" class="step-image"></object>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="qr-section">
+        <h2>Quét mã QR để truy cập</h2>
+        <div id="qrcode"></div>
+        <p>Sử dụng điện thoại di động để quét mã QR và xem thông tin chi tiết</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <script>
+        function highlightStep(element) {
+            // Remove active class from all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Add active class to clicked step
+            element.classList.add('active');
+            
+            // Smooth scroll to the step
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Add animation to steps when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all steps
+        document.querySelectorAll('.step').forEach(step => {
+            step.style.opacity = '0';
+            step.style.transform = 'translateY(20px)';
+            step.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(step);
+        });
+
+        // Generate QR Code
+        window.onload = function() {
+            // Thay đổi URL này khi deploy lên host thực tế
+            const hostUrl = 'https://null6868.github.io/hoa';  // Thay thế bằng URL thực của bạn
+            
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: hostUrl,  // Sử dụng URL của host thay vì window.location.href
+                width: 200,
+                height: 200,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+
+            // Hiển thị URL bên dưới mã QR
+            const urlDisplay = document.createElement('p');
+            urlDisplay.style.marginTop = '10px';
+            urlDisplay.style.fontSize = '0.8em';
+            urlDisplay.style.color = '#666';
+            urlDisplay.style.wordBreak = 'break-all';
+            urlDisplay.textContent = 'URL: ' + hostUrl;
+            document.getElementById('qrcode').parentNode.appendChild(urlDisplay);
+        };
+    </script>
+</body>
+</html> 
